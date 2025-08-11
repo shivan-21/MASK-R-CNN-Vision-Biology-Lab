@@ -1,0 +1,22 @@
+# PyTorch with CUDA 12.1 (compatible with your driver)
+torch==2.1.0+cu121 --index-url https://download.pytorch.org/whl/cu121
+torchvision==0.16.0+cu121 --index-url https://download.pytorch.org/whl/cu121
+torchaudio==2.1.0+cu121 --index-url https://download.pytorch.org/whl/cu121
+
+# Detectron2 (GPU build)
+git+https://github.com/facebookresearch/detectron2.git
+
+# Data and ML libraries
+numpy
+pandas
+matplotlib
+seaborn
+scikit-learn
+opencv-python
+pycocotools
+Pillow
+tqdm
+
+# Jupyter for running notebooks
+notebook
+ipykernel
