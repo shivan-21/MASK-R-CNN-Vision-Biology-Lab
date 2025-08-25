@@ -1,0 +1,53 @@
+***FEATURES***
+
+original_area: no of pixels in the cell mask 
+aspect_ratio: The original bb is (min_y, min_x, max_y, max_x): (max_x - min_x) / (max_y - min_y)
+
+circularity: This measures how close to a perfect circle the mask. (4 * pi * area) / (perimeter^2).
+solidity: Solidity is the ratio of the mask's actual area to the area of this convex hull.
+mean_intensity: uses the cell mask to select only the pixels from the intensity_image that belong to that cell
+std_intensity: After selecting all the pixels within the cell mask, we calculate their standard deviation. Checks uniformity of texture
++ bonus BIO BASED FEATURES
+
+MASK R CNN
+mrcnn_prob_other (e.g., 0.10)
+mrcnn_prob_rbc (e.g., 0.75)
+mrcnn_prob_cbc (e.g., 0.15)
+
+Deployment Pipeline:
+Step 1: Instance Segmentations
+    Input: A new, raw image of retinal cells.
+    Action: Feed the image into the trained Mask R-CNN model
+    Output: A set of individual segmentation masks, where each mask outlines a single detected cell
+
+    != model classification is not too imp rn 
+
+Step 2: Feature Engineering
+    Input: The original image and the list of masks from Instance Segmentation
+    Action: For each mask, calculate the exact same set of features:
+      Shape features: Area, Aspect Ratio, Circularity, Solidity.
+      Texture features: Mean Pixel Intensity, Std Deviation of Pixel Intensity.
+    Output: A structured dataset (like a list of dictionaries or a DataFrame)
+
+    Shld add mask rcnn probabs to the df. Each segmetnation shld have it's own row. 
+
+
+Step 3: Classification with the Gradient Boosting Model
+    Input: The feature set for all detected cells from Step
+    Action:  Feed these features into the trained Gradient Boosting model.
+    Output: A final prediction (e.g., 'other', 'rbc', or 'cbc') for each cell.
+
+Step 4: Visualization- what the user SEes:
+    Input: The original image, the segmentation masks from Step 1, and the final class predictions from Step 3.
+    Action: loop through each mask and its corresponding prediction.
+        Choose a specific color (e.g., red for 'rbc', blue for 'cbc', yellow for 'other')
+        Overlay the coloured mask onto og
+    Output: The final image with all detected cells highlighted and color-coded
+
+
+
+
+
+
+
+
