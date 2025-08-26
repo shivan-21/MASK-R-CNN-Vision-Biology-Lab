@@ -3,6 +3,6 @@ This repository contains a complete ML pipeline to classify various cell types i
 Folder Structure:
 - Analysis
   - generated images
-  - 
-- Data
+  - data\PenFudan (used for testing model and setting environment)
+- Image and seg Data
 - Processed Data
