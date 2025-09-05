@@ -7,12 +7,13 @@ circularity: This measures how close to a perfect circle the mask. (4 * pi * are
 solidity: Solidity is the ratio of the mask's actual area to the area of this convex hull.
 mean_intensity: uses the cell mask to select only the pixels from the intensity_image that belong to that cell
 std_intensity: After selecting all the pixels within the cell mask, we calculate their standard deviation. Checks uniformity of texture
-+ bonus BIO BASED FEATURES
 
 MASK R CNN
 mrcnn_prob_other (e.g., 0.10)
 mrcnn_prob_rbc (e.g., 0.75)
 mrcnn_prob_cbc (e.g., 0.15)
+
+Step 0: Get and Process the Training Data (Cellpose plus labelling with scgn and pkc alpha)
 
 Deployment Pipeline:
 Step 1: Instance Segmentations
@@ -20,7 +21,7 @@ Step 1: Instance Segmentations
     Action: Feed the image into the trained Mask R-CNN model
     Output: A set of individual segmentation masks, where each mask outlines a single detected cell
 
-    != model classification is not too imp rn 
+    != model classification is not too imp at this stage. 
 
 Step 2: Feature Engineering
     Input: The original image and the list of masks from Instance Segmentation
@@ -41,7 +42,7 @@ Step 4: Visualization- what the user SEes:
     Input: The original image, the segmentation masks from Step 1, and the final class predictions from Step 3.
     Action: loop through each mask and its corresponding prediction.
         Choose a specific color (e.g., red for 'rbc', blue for 'cbc', yellow for 'other')
-        Overlay the coloured mask onto og
+        Overlay the coloured mask onto orinial test image
     Output: The final image with all detected cells highlighted and color-coded
 
 
